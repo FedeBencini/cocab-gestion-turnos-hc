@@ -272,3 +272,7 @@ WHERE id_turno = 7;
 UPDATE pacientes 
 SET estado_activo = 0 
 WHERE id_paciente = 4;
+
+-- Consulta 6: Baja Física de Turno por Anulación / Error de Carga
+DELETE FROM turnos 
+WHERE id_turno = 8;
