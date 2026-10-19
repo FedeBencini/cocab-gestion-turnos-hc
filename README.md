@@ -85,7 +85,7 @@ Se usan `ArrayList` para las listas dinámicas y arreglos para los valores fijos
 Con JDK 17 o 21 y Maven 3.9 en el PATH, desde la raíz del proyecto:
 
 ```
-homvn javafx:run
+mvn javafx:run
 ```
 
 Durante el desarrollo también se puede iniciar ejecutando `com.cocab.Launcher` desde el IDE.
