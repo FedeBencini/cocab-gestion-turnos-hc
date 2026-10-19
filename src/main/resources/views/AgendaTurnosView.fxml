@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="raiz" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cocab.controller.AgendaTurnosController" styleClass="fondo"
+            prefWidth="1200" prefHeight="800" minWidth="600" minHeight="420">
+    <top>
+        <VBox spacing="12">
+            <padding><Insets top="20" right="20" bottom="12" left="20"/></padding>
+            <FlowPane fx:id="filtros" hgap="16" vgap="12" alignment="BOTTOM_LEFT" disable="true" styleClass="tarjeta">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <VBox spacing="6">
+                    <Label text="_Fecha inicial" labelFor="${fechaDesde}" mnemonicParsing="true"/>
+                    <DatePicker fx:id="fechaDesde" editable="true" promptText="dd/MM/aaaa" prefWidth="175"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="_Período" labelFor="${cmbPeriodo}" mnemonicParsing="true"/>
+                    <ComboBox fx:id="cmbPeriodo" editable="false" prefWidth="275"/>
+                </VBox>
+                <VBox fx:id="panelProfesional" spacing="6">
+                    <Label text="Profes_ional" labelFor="${cmbProfesional}" mnemonicParsing="true"/>
+                    <ComboBox fx:id="cmbProfesional" editable="false" prefWidth="340"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="_Estado" labelFor="${cmbEstado}" mnemonicParsing="true"/>
+                    <ComboBox fx:id="cmbEstado" editable="false" prefWidth="160"/>
+                </VBox>
+                <CheckBox fx:id="chkIncluirInactivos" text="Histórico (Incluye Pacientes/Profesionales inactivos)"
+                          selected="false" wrapText="true"/>
+                <Button fx:id="btnRecargar" text="_Recargar" mnemonicParsing="true" onAction="#recargar" disable="true"/>
+            </FlowPane>
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <ProgressIndicator fx:id="progreso" prefWidth="26" prefHeight="26" visible="false" managed="false"/>
+            </HBox>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="10" styleClass="tarjeta" BorderPane.alignment="CENTER">
+            <padding><Insets top="16" right="20" bottom="16" left="20"/></padding>
+            <Label text="Turnos del Período" styleClass="titulo-seccion"/>
+            <Label fx:id="lblRango" wrapText="true" styleClass="secundario"/>
+            <TableView fx:id="tablaTurnos" editable="false" disable="true" minWidth="0" minHeight="0"
+                       VBox.vgrow="ALWAYS" accessibleText="Agenda ordenada por fecha y hora, con todos los estados"/>
+        </VBox>
+    </center>
+    <bottom>
+        <!-- Vacío en FXML: los botones se crean únicamente para secretaria. Fijo abajo para no tapar la tabla. -->
+        <FlowPane fx:id="acciones" hgap="10" vgap="8" BorderPane.alignment="CENTER_LEFT">
+            <padding><Insets top="10" right="20" bottom="20" left="20"/></padding>
+        </FlowPane>
+    </bottom>
+</BorderPane>

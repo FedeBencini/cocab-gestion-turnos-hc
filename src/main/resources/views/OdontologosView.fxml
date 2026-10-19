@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="raiz" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cocab.controller.OdontologosController"
+      prefWidth="1200" prefHeight="800" minWidth="600" minHeight="420" spacing="12" styleClass="fondo">
+    <padding><Insets top="18" right="18" bottom="18" left="18"/></padding>
+    <Label text="Odontólogos" styleClass="titulo"/>
+    <Label text="Datos administrativos; sin HC" styleClass="insignia" wrapText="true"/>
+    <FlowPane hgap="10" vgap="8" alignment="CENTER_LEFT">
+        <Button fx:id="btnNuevo" text="_Nuevo" mnemonicParsing="true" onAction="#nuevo" disable="true"/>
+        <Button fx:id="btnRecargar" text="_Recargar" mnemonicParsing="true" onAction="#recargar"
+                styleClass="button, boton-secundario" disable="true"/>
+        <CheckBox fx:id="chkIncluirInactivos" text="_Incluir inactivos" mnemonicParsing="true"
+                  selected="false" onAction="#cambiarInactivos" disable="true"/>
+    </FlowPane>
+    <SplitPane dividerPositions="0.60" VBox.vgrow="ALWAYS" minHeight="120">
+        <items>
+            <VBox spacing="10" minWidth="220" styleClass="tarjeta">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <Label text="Padrón profesional" styleClass="titulo-seccion"/>
+                <Label text="_Buscar DNI exacto" labelFor="${txtBusquedaDni}" mnemonicParsing="true"/>
+                <FlowPane hgap="8" vgap="8">
+                    <TextField fx:id="txtBusquedaDni" promptText="7 u 8 dígitos, sin puntos" prefWidth="225"
+                               onAction="#buscarDni" disable="true"/>
+                    <Button fx:id="btnBuscar" text="_Buscar" mnemonicParsing="true" onAction="#buscarDni" disable="true"/>
+                </FlowPane>
+                <Label text="La búsqueda se realiza al pulsar Buscar, solo en la lista cargada. Para otros registros, incluya inactivos y recargue."
+                       wrapText="true" styleClass="pie"/>
+                <TableView fx:id="tablaOdontologos" editable="false" minWidth="0" minHeight="80"
+                           VBox.vgrow="ALWAYS" disable="true" accessibleText="Padrón administrativo de odontólogos"/>
+                <Label fx:id="lblCarga" text="Sin carga vigente. Recargue antes de guardar." wrapText="true" styleClass="estado"/>
+                <Label text="— indica un dato opcional no informado. Desplace la grilla horizontalmente para ver todas las columnas."
+                       wrapText="true" styleClass="pie"/>
+            </VBox>
+            <VBox spacing="12" minWidth="280" styleClass="tarjeta">
+                <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                <Label text="Ficha profesional" styleClass="titulo-seccion"/>
+                <Label fx:id="lblIdentidad" text="Seleccione una fila o pulse Nuevo después de cargar el padrón."
+                       wrapText="true" styleClass="secundario"/>
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" minHeight="80"
+                            styleClass="panel-desplazable">
+                    <content>
+                        <VBox fx:id="formulario" spacing="8" fillWidth="true" disable="true">
+                            <padding><Insets top="10" right="12" bottom="14" left="10"/></padding>
+                            <Label text="* Campos obligatorios" styleClass="pie"/>
+                            <Label text="_DNI *" labelFor="${txtDni}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtDni" promptText="7 u 8 dígitos, sin puntos"/>
+                            <Label text="N_ombre *" labelFor="${txtNombre}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtNombre" promptText="Hasta 50 caracteres"/>
+                            <Label text="_Apellido *" labelFor="${txtApellido}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtApellido" promptText="Hasta 50 caracteres"/>
+                            <Label text="_Teléfono" labelFor="${txtTelefono}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtTelefono" promptText="Opcional · hasta 20 caracteres"/>
+                            <Label text="Correo _electrónico" labelFor="${txtEmail}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtEmail" promptText="Opcional · hasta 100 caracteres"/>
+                            <Label text="Dire_cción" labelFor="${txtDireccion}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtDireccion" promptText="Opcional · hasta 150 caracteres"/>
+                            <Label text="_Matrícula *" labelFor="${txtMatricula}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtMatricula" promptText="Hasta 20 caracteres"/>
+                            <Label text="Sin prefijo obligatorio. La matrícula debe ser única en el padrón."
+                                   wrapText="true" styleClass="pie"/>
+                            <Label text="E_specialidad *" labelFor="${txtEspecialidad}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtEspecialidad" promptText="Hasta 100 caracteres"/>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <FlowPane hgap="8" vgap="8">
+                    <Button fx:id="btnGuardar" text="_Guardar" mnemonicParsing="true" onAction="#guardar" disable="true"/>
+                    <Button fx:id="btnBaja" text="Dar de ba_ja" mnemonicParsing="true" onAction="#darDeBaja"
+                            styleClass="button, boton-secundario" disable="true"/>
+                </FlowPane>
+            </VBox>
+        </items>
+    </SplitPane>
+    <Label fx:id="lblEstado" text="Vista pendiente de activación." wrapText="true" styleClass="estado"/>
+</VBox>

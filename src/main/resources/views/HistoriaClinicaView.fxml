@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="raiz" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cocab.controller.HistoriaClinicaController" styleClass="fondo"
+      prefWidth="1050" prefHeight="820" minWidth="480" minHeight="380" spacing="10">
+    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+    <Label text="Historia clínica" styleClass="titulo"/>
+    <Label text="Odontología · Consulta compartida · Autor de cada anexo resuelto desde la sesión"
+           styleClass="insignia" wrapText="true" maxWidth="Infinity"/>
+    <ScrollPane fx:id="scrollPrincipal" fitToWidth="true" hbarPolicy="NEVER" styleClass="panel-desplazable" VBox.vgrow="ALWAYS" minWidth="0">
+        <content>
+            <VBox spacing="16" minWidth="0">
+                <padding><Insets top="4" right="8" bottom="12" left="4"/></padding>
+                <VBox spacing="10" styleClass="tarjeta" minWidth="0">
+                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                    <Label text="1. Buscar paciente" styleClass="titulo-seccion"/>
+                    <Label text="_Paciente · nombre, DNI y actividad" labelFor="${cmbPaciente}" mnemonicParsing="true" wrapText="true"/>
+                    <ComboBox fx:id="cmbPaciente" editable="false" maxWidth="Infinity" minWidth="0" disable="true"
+                              promptText="Seleccione un paciente del catálogo" visibleRowCount="12"/>
+                    <FlowPane hgap="10" vgap="10" alignment="BOTTOM_LEFT" minWidth="0">
+                        <VBox spacing="5">
+                            <Label text="_DNI exacto" labelFor="${txtBuscarDni}" mnemonicParsing="true"/>
+                            <TextField fx:id="txtBuscarDni" promptText="7 u 8 dígitos, sin puntos" prefWidth="225"
+                                       onAction="#buscarDni" disable="true"/>
+                        </VBox>
+                        <Button fx:id="btnBuscarDni" text="Buscar DNI" onAction="#buscarDni" disable="true"/>
+                        <CheckBox fx:id="chkIncluirInactivos" text="Incluir pacientes inactivos (solo lectura)"
+                                  selected="false" wrapText="true" disable="true"/>
+                    </FlowPane>
+                    <FlowPane hgap="10" vgap="8">
+                        <Button fx:id="btnRecargarPacientes" text="Recargar pacientes" onAction="#recargarPacientes" disable="true"/>
+                        <Button fx:id="btnRecargarFicha" text="Recargar ficha" onAction="#recargarFicha"
+                                styleClass="boton-secundario" disable="true"/>
+                    </FlowPane>
+                    <Label fx:id="lblCatalogo" text="Sin catálogo vigente." styleClass="estado" wrapText="true"/>
+                    <Label fx:id="lblPaciente" text="Sin paciente seleccionado." styleClass="nombre-usuario" wrapText="true" maxWidth="Infinity"/>
+                    <Label text="Cambiar paciente, filtro o recargar descarta la ficha y los borradores. Recargar ficha relee también la actividad. Un paciente inactivo solo admite consulta, incluso con HC activa."
+                           styleClass="pie" wrapText="true" minWidth="0"/>
+                </VBox>
+
+                <VBox spacing="10" styleClass="tarjeta" minWidth="0">
+                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                    <Label text="2. Cabecera de la historia" styleClass="titulo-seccion"/>
+                    <Label fx:id="lblFicha" text="Sin ficha consultada." wrapText="true"/>
+                    <VBox fx:id="panelCabecera" spacing="8" visible="false" managed="false" minWidth="0">
+                        <Label fx:id="lblLegajo" wrapText="true" styleClass="nombre-usuario"/>
+                        <Label fx:id="lblActividadFicha" wrapText="true" styleClass="insignia" visible="false" managed="false"/>
+                        <VBox spacing="8" styleClass="ficha-resumen" minWidth="0">
+                            <FlowPane hgap="32" vgap="6">
+                                <VBox spacing="1">
+                                    <Label text="Edad" styleClass="dato-etiqueta"/>
+                                    <Label fx:id="lblEdad" styleClass="dato-valor"/>
+                                </VBox>
+                                <VBox spacing="1">
+                                    <Label text="Fecha de apertura" styleClass="dato-etiqueta"/>
+                                    <Label fx:id="lblFechaApertura" styleClass="dato-valor"/>
+                                </VBox>
+                                <VBox spacing="1">
+                                    <Label text="Grupo sanguíneo" styleClass="dato-etiqueta"/>
+                                    <Label fx:id="lblGrupoLectura" styleClass="dato-valor" wrapText="true"/>
+                                </VBox>
+                            </FlowPane>
+                            <VBox spacing="1">
+                                <Label text="Alergias" styleClass="dato-etiqueta"/>
+                                <Label fx:id="lblAlergiasLectura" styleClass="dato-valor" wrapText="true" maxWidth="Infinity"/>
+                            </VBox>
+                            <VBox spacing="1">
+                                <Label text="Antecedentes médicos" styleClass="dato-etiqueta"/>
+                                <Label fx:id="lblAntecedentesLectura" styleClass="dato-valor" wrapText="true" maxWidth="Infinity"/>
+                            </VBox>
+                        </VBox>
+                        <Label text="No informado significa ausencia de información, no ausencia de alergias o antecedentes."
+                               styleClass="pie" wrapText="true"/>
+                        <FlowPane hgap="10" vgap="8">
+                            <Button fx:id="btnModificarFicha" text="Modificar datos de la ficha" onAction="#abrirEdicion"
+                                    styleClass="boton-secundario" disable="true"/>
+                        </FlowPane>
+                    </VBox>
+                    <VBox fx:id="panelEdicion" spacing="8" visible="false" managed="false" disable="true" minWidth="0">
+                        <Label text="Corregir datos de la ficha · CAMBIOS NO GUARDADOS" styleClass="insignia" wrapText="true"/>
+                        <Label text="Grupo sanguíneo (opcional, hasta 10 caracteres)" labelFor="${txtGrupoEdicion}" wrapText="true"/>
+                        <TextField fx:id="txtGrupoEdicion" promptText="Sin informar si se desconoce" minWidth="0"/>
+                        <Label text="Alergias (opcional)" labelFor="${txtAlergiasEdicion}"/>
+                        <TextArea fx:id="txtAlergiasEdicion" wrapText="true" prefRowCount="3" minWidth="0"/>
+                        <Label text="Antecedentes médicos (opcional)" labelFor="${txtAntecedentesEdicion}"/>
+                        <TextArea fx:id="txtAntecedentesEdicion" wrapText="true" prefRowCount="3" minWidth="0"/>
+                        <Label text="Solo paciente y HC activos. Los valores reemplazan a los persistidos y requieren confirmación; legajo, fecha de apertura y evoluciones no cambian. Los campos vacíos quedan como no informados."
+                               styleClass="pie" wrapText="true"/>
+                        <FlowPane hgap="10" vgap="8">
+                            <Button fx:id="btnGuardarCabecera" text="Revisar y guardar cambios" onAction="#guardarCabecera" disable="true"/>
+                            <Button fx:id="btnRestaurarCabecera" text="Descartar cambios y cerrar" onAction="#restaurarCabecera"
+                                    styleClass="boton-secundario" disable="true"/>
+                        </FlowPane>
+                    </VBox>
+                    <VBox fx:id="panelApertura" spacing="8" visible="false" managed="false" disable="true" minWidth="0">
+                        <Label text="Borrador de apertura · NO GUARDADO" styleClass="insignia" wrapText="true"/>
+                        <Label text="Grupo sanguíneo inicial (opcional, hasta 10 caracteres)" labelFor="${txtGrupoInicial}" wrapText="true"/>
+                        <TextField fx:id="txtGrupoInicial" promptText="Sin informar si se desconoce" minWidth="0"/>
+                        <Label text="Alergias iniciales (opcional)" labelFor="${txtAlergiasIniciales}"/>
+                        <TextArea fx:id="txtAlergiasIniciales" wrapText="true" prefRowCount="3" minWidth="0"/>
+                        <Label text="Antecedentes médicos iniciales (opcional)" labelFor="${txtAntecedentesIniciales}"/>
+                        <TextArea fx:id="txtAntecedentesIniciales" wrapText="true" prefRowCount="3" minWidth="0"/>
+                        <Label text="La apertura requiere confirmación. Legajo automático HC-año del servidor-idPaciente y fecha del servidor, sin selección manual. Estos campos podrán corregirse después desde esta misma sección. Si la ficha ya existe por otra apertura, se descartan los datos propuestos y se muestra la existente. No se crea una segunda HC."
+                               styleClass="pie" wrapText="true"/>
+                        <FlowPane hgap="10" vgap="8">
+                            <Button fx:id="btnAbrir" text="Revisar y abrir ficha" onAction="#abrirHistoria" disable="true"/>
+                            <Button fx:id="btnLimpiarApertura" text="Descartar borrador de apertura" onAction="#limpiarApertura"
+                                    styleClass="boton-secundario" disable="true"/>
+                        </FlowPane>
+                    </VBox>
+                </VBox>
+
+                <VBox spacing="10" styleClass="tarjeta" minWidth="0">
+                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                    <Label text="3. Historial persistido · solo lectura" styleClass="titulo-seccion" wrapText="true"/>
+                    <Label text="Todos los autores, incluidos profesionales actualmente inactivos. Orden cronológico por fecha/hora e ID; varios registros pueden compartir el mismo segundo. Desplace la tabla horizontalmente si es necesario."
+                           styleClass="pie" wrapText="true"/>
+                    <TableView fx:id="tablaEvoluciones" editable="false" disable="true" minWidth="0"
+                               prefHeight="260" minHeight="180" accessibleText="Evoluciones persistidas ordenadas por fecha, hora e identificador"/>
+                    <Label fx:id="lblDetalle" text="Seleccione una evolución para leerla completa." wrapText="true" maxWidth="Infinity"/>
+                    <VBox spacing="8" styleClass="ficha-resumen" minWidth="0">
+                        <VBox spacing="1">
+                            <Label text="Diagnóstico registrado" styleClass="dato-etiqueta"/>
+                            <Label fx:id="lblDiagnosticoLectura" styleClass="dato-valor" wrapText="true" maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="1">
+                            <Label text="Tratamiento realizado registrado" styleClass="dato-etiqueta"/>
+                            <Label fx:id="lblTratamientoLectura" styleClass="dato-valor" wrapText="true" maxWidth="Infinity"/>
+                        </VBox>
+                        <VBox spacing="1">
+                            <Label text="Observaciones registradas" styleClass="dato-etiqueta"/>
+                            <Label fx:id="lblObservacionesLectura" styleClass="dato-valor" wrapText="true" maxWidth="Infinity"/>
+                        </VBox>
+                    </VBox>
+                    <Label text="Seleccionar una fila no la copia al borrador ni permite editarla o eliminarla."
+                           styleClass="pie" wrapText="true"/>
+                </VBox>
+
+                <VBox fx:id="panelAnexo" spacing="10" styleClass="tarjeta" disable="true" minWidth="0">
+                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                    <Label text="4. Nueva evolución · BORRADOR NO GUARDADO" styleClass="titulo-seccion" wrapText="true"/>
+                    <Label text="Formulario independiente del historial. Solo paciente y HC activos. Al confirmar se anexa un registro inmutable; no modifica evoluciones previas ni el estado de los turnos."
+                           styleClass="insignia" wrapText="true"/>
+                    <Label text="Pieza dental (opcional, hasta 20 caracteres)" labelFor="${txtPieza}" wrapText="true"/>
+                    <TextField fx:id="txtPieza" promptText="Texto clínico ingresado por el profesional" minWidth="0"/>
+                    <Label text="Diagnóstico *" labelFor="${txtDiagnostico}"/>
+                    <TextArea fx:id="txtDiagnostico" wrapText="true" prefRowCount="4" minWidth="0" promptText="Obligatorio"/>
+                    <Label text="Tratamiento realizado *" labelFor="${txtTratamiento}"/>
+                    <TextArea fx:id="txtTratamiento" wrapText="true" prefRowCount="4" minWidth="0" promptText="Obligatorio"/>
+                    <Label text="Observaciones (opcional)" labelFor="${txtObservaciones}"/>
+                    <TextArea fx:id="txtObservaciones" wrapText="true" prefRowCount="4" minWidth="0"/>
+                    <Label text="* Obligatorios. Los campos extensos admiten hasta 65000 caracteres cada uno; los excesos se rechazan, no se recortan. Revise el contenido completo antes de confirmar; no hay edición ni eliminación posterior."
+                           styleClass="pie" wrapText="true"/>
+                    <FlowPane hgap="10" vgap="8">
+                        <Button fx:id="btnAnexar" text="Revisar y anexar evolución" onAction="#anexarEvolucion" disable="true"/>
+                        <Button fx:id="btnLimpiarAnexo" text="Descartar borrador de evolución" onAction="#limpiarAnexo"
+                                styleClass="boton-secundario" disable="true"/>
+                    </FlowPane>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+    <ProgressIndicator fx:id="progreso" prefWidth="26" prefHeight="26" visible="false" managed="false"/>
+    <Label fx:id="lblResultado" text="Vista pendiente de activación." styleClass="insignia" wrapText="true" maxWidth="Infinity"/>
+    <Label fx:id="lblEstado" text="Sin carga vigente." styleClass="estado" wrapText="true" maxWidth="Infinity"/>
+</VBox>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cocab.controller.MainShellController" styleClass="fondo">
+    <top>
+        <MenuBar>
+            <menus>
+                <Menu text="_Sesión" mnemonicParsing="true">
+                    <items>
+                        <MenuItem text="_Cerrar sesión" mnemonicParsing="true" onAction="#cerrarSesion"/>
+                        <SeparatorMenuItem/>
+                        <MenuItem text="_Salir" mnemonicParsing="true" onAction="#salir"/>
+                    </items>
+                </Menu>
+                <Menu fx:id="menuModulos" text="_Módulos" mnemonicParsing="true" visible="false">
+                    <items>
+                        <MenuItem fx:id="itemAgenda" text="Agenda" disable="true"
+                                  visible="false" onAction="#mostrarAgenda"/>
+                        <MenuItem fx:id="itemPacientes" text="Pacientes" disable="true"
+                                  visible="false" onAction="#mostrarPacientes"/>
+                        <MenuItem fx:id="itemOdontologos" text="Odontólogos" disable="true"
+                                  visible="false" onAction="#mostrarOdontologos"/>
+                        <MenuItem fx:id="itemHistorias" text="Historias clínicas" disable="true"
+                                  visible="false" onAction="#mostrarHistorias"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="panel-desplazable">
+            <content>
+                <VBox spacing="24" fillWidth="true">
+                    <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+                    <HBox spacing="20" alignment="CENTER_LEFT">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="COCAB" styleClass="marca"/>
+                            <Label text="Centro odontológico · Espacio de trabajo" wrapText="true" styleClass="subtitulo"/>
+                        </VBox>
+                        <Button text="Cerrar _sesión" mnemonicParsing="true" onAction="#cerrarSesion"
+                                styleClass="boton-secundario"/>
+                    </HBox>
+                    <VBox spacing="12" styleClass="tarjeta">
+                        <padding><Insets top="26" right="28" bottom="26" left="28"/></padding>
+                        <Label text="Información de Sesión" styleClass="titulo-tarjeta"/>
+                        <Label fx:id="lblUsuario" wrapText="true" styleClass="nombre-usuario"/>
+                        <Label fx:id="lblRol" wrapText="true" styleClass="insignia"/>
+                        <Label fx:id="lblAlcance" wrapText="true" styleClass="secundario"/>
+                    </VBox>
+                    <VBox spacing="10" styleClass="aviso-pendiente">
+                        <padding><Insets top="22" right="28" bottom="22" left="28"/></padding>
+                        <Label text="Información de Alcance" wrapText="true" styleClass="titulo-seccion"/>
+                        <Label text="Secretaria dispone de padrones y gestión de agenda, sin contenido de historias clínicas."
+                               wrapText="true"/>
+                        <Label text="Odontólogos consultan su agenda propia y acceden a historias compartidas con anexos de autor individual."
+                               wrapText="true"/>
+                        <Label text="No se cargan padrones hasta abrir su módulo. Las vistas administrativas no consultan historias clínicas."
+                               wrapText="true" styleClass="secundario"/>
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <Label text="Federico Bencini - VINF017520 - 2026"
+               wrapText="true" styleClass="pie" BorderPane.alignment="CENTER">
+            <padding><Insets top="10" right="20" bottom="20" left="20"/></padding>
+        </Label>
+    </bottom>
+</BorderPane>

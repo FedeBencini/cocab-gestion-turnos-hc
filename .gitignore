@@ -1,0 +1,17 @@
+# Salidas de Maven y archivos generados
+/target/
+/dependency-reduced-pom.xml
+*.class
+
+# Registros
+/logs/
+*.log
+
+# Metadatos locales de IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+Thumbs.db
+.DS_Store

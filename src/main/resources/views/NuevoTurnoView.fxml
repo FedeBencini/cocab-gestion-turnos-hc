@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="raiz" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.cocab.controller.NuevoTurnoController" styleClass="fondo"
+      prefWidth="760" prefHeight="790" minWidth="480" minHeight="450" spacing="12">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+    <Label fx:id="lblTitulo" text="Turno" styleClass="titulo"/>
+    <Label text="Secretaria · Atención de 08:00 a 18:00 · Franjas de 30 minutos" styleClass="insignia" wrapText="true"/>
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS" minHeight="100" styleClass="panel-desplazable">
+        <content>
+            <VBox spacing="16">
+                <padding><Insets top="4" right="10" bottom="12" left="2"/></padding>
+                <VBox spacing="8" styleClass="tarjeta">
+                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                    <Label text="Referencia original · Solo lectura" styleClass="titulo-seccion"/>
+                    <Label fx:id="lblOriginal" text="Preparando datos…" wrapText="true" styleClass="secundario"/>
+                </VBox>
+                <VBox fx:id="campos" spacing="9" styleClass="tarjeta" disable="true">
+                    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+                    <Label text="Datos de la asignación *" styleClass="titulo-seccion"/>
+                    <Label text="_Paciente *" labelFor="${cmbPaciente}" mnemonicParsing="true"/>
+                    <ComboBox fx:id="cmbPaciente" editable="false" promptText="Seleccione paciente activo por nombre y DNI"
+                              maxWidth="1.7976931348623157E308"/>
+                    <Label fx:id="lblPacienteFijo" text="Solo pacientes activos" styleClass="pie" wrapText="true"/>
+                    <Label text="_Odontólogo *" labelFor="${cmbOdontologo}" mnemonicParsing="true"/>
+                    <ComboBox fx:id="cmbOdontologo" editable="false" promptText="Seleccione un profesional activo"
+                              maxWidth="1.7976931348623157E308"/>
+                    <Label text="Si el profesional original está inactivo, seleccione otro activo para reprogramar."
+                           styleClass="pie" wrapText="true"/>
+                    <FlowPane hgap="20" vgap="10">
+                        <VBox spacing="6">
+                            <Label text="_Fecha *" labelFor="${fechaTurno}" mnemonicParsing="true"/>
+                            <DatePicker fx:id="fechaTurno" editable="true" promptText="dd/MM/aaaa" prefWidth="190"/>
+                        </VBox>
+                        <VBox spacing="6">
+                            <Label text="_Inicio *" labelFor="${cmbHora}" mnemonicParsing="true"/>
+                            <ComboBox fx:id="cmbHora" editable="false" promptText="08:00–17:30" prefWidth="170"/>
+                        </VBox>
+                    </FlowPane>
+                    <Label fx:id="lblFin" text="Fin: —" styleClass="insignia"/>
+                    <Label text="Fecha de hoy o posterior. Fin calculado automáticamente; veinte horarios de inicio disponibles."
+                           styleClass="pie" wrapText="true"/>
+                    <Label text="_Motivo de consulta *" labelFor="${txtMotivo}" mnemonicParsing="true"/>
+                    <TextArea fx:id="txtMotivo" promptText="Obligatorio · hasta 255 caracteres" wrapText="true" prefRowCount="3"/>
+                </VBox>
+            </VBox>
+        </content>
+    </ScrollPane>
+    <FlowPane hgap="10" vgap="8">
+        <Button fx:id="btnGuardar" text="Confirmar asignación" onAction="#guardar" disable="true"/>
+        <Button fx:id="btnRecargar" text="Recargar catálogos" onAction="#recargarCatalogos"
+                styleClass="button, boton-secundario" disable="true"/>
+        <Button fx:id="btnCerrar" text="Cerrar" onAction="#solicitarCierreDesdeBoton" styleClass="button, boton-secundario"/>
+    </FlowPane>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <ProgressIndicator fx:id="progreso" prefWidth="24" prefHeight="24" visible="false" managed="false"/>
+        <Label fx:id="lblEstado" text="Esperando activación." styleClass="estado" wrapText="true" HBox.hgrow="ALWAYS"/>
+    </HBox>
+</VBox>

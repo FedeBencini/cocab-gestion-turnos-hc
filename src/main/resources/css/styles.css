@@ -1,0 +1,51 @@
+.root { -fx-font-family: "Segoe UI"; -fx-font-size: 14px; -fx-text-fill: #183b48; }
+.fondo { -fx-background-color: #eef5f6; }
+.label { -fx-text-fill: #183b48; }
+.marca { -fx-font-size: 42px; -fx-font-weight: bold; -fx-text-fill: #087e8b; }
+.subtitulo { -fx-font-size: 16px; -fx-text-fill: #476772; }
+.titulo { -fx-font-size: 28px; -fx-font-weight: bold; }
+.titulo-tarjeta { -fx-font-size: 24px; -fx-font-weight: bold; }
+.secundario, .pie { -fx-text-fill: #526d77; }
+.pie { -fx-font-size: 12px; }
+.insignia { -fx-background-color: #dceff0; -fx-padding: 10; -fx-background-radius: 8; -fx-text-fill: #07636c; }
+.tarjeta { -fx-background-color: white; -fx-background-radius: 16; -fx-border-radius: 16; -fx-border-color: #d7e5e9; }
+.button { -fx-background-color: #087e8b; -fx-text-fill: white; -fx-padding: 12 16; -fx-background-radius: 8; -fx-cursor: hand; }
+.button:hover { -fx-background-color: #066672; }
+.button:focused { -fx-border-color: #133e69; -fx-border-width: 2; -fx-border-radius: 8; }
+.button:disabled { -fx-opacity: 0.55; -fx-cursor: default; }
+.boton-secundario { -fx-background-color: #e1eff1; -fx-text-fill: #075e69; }
+.boton-secundario:hover { -fx-background-color: #cce4e7; }
+.estado { -fx-font-size: 12px; -fx-text-fill: #4d636d; }
+.menu-bar { -fx-background-color: white; -fx-border-color: transparent transparent #d7e5e9 transparent; }
+.text-field { -fx-background-color: #f8fbfc; -fx-border-color: #91adb7; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10 12; -fx-text-fill: #183b48; -fx-prompt-text-fill: #526d77; }
+.text-field:focused { -fx-border-color: #087e8b; -fx-border-width: 2; -fx-padding: 9 11; }
+.text-field:disabled { -fx-opacity: 0.7; }
+.nombre-usuario { -fx-font-size: 20px; -fx-font-weight: bold; }
+.titulo-seccion { -fx-font-size: 18px; -fx-font-weight: bold; }
+.ficha-resumen { -fx-background-color: #f3f8f9; -fx-background-radius: 8; -fx-padding: 10 14; }
+.dato-etiqueta { -fx-font-size: 12px; -fx-text-fill: #526d77; }
+.dato-valor { -fx-font-size: 15px; -fx-font-weight: bold; }
+.aviso-pendiente { -fx-background-color: #e1eff1; -fx-background-radius: 12; -fx-border-color: #b8d6dc; -fx-border-radius: 12; }
+.panel-desplazable, .panel-desplazable > .viewport { -fx-background-color: #eef5f6; }
+.panel-desplazable { -fx-padding: 0; -fx-border-width: 0; }
+.progress-indicator { -fx-progress-color: #087e8b; }
+.estado-badge { -fx-padding: 4 10; -fx-background-radius: 12; -fx-font-size: 12px; -fx-font-weight: bold; }
+.estado-asignado { -fx-background-color: #d7f2df; -fx-text-fill: #1a7a3e; }
+.estado-reprogramado { -fx-background-color: #fff3cd; -fx-text-fill: #8a6300; }
+.estado-cancelado { -fx-background-color: #fbdcdc; -fx-text-fill: #a3262c; }
+.estado-atendido { -fx-background-color: #e2e5e8; -fx-text-fill: #4d555c; }
+.menu-item:focused, .menu:hover, .menu:showing { -fx-background-color: #066672; }
+.menu-item:focused .label, .menu:hover > .label, .menu:showing > .label { -fx-text-fill: white; }
+.menu-item:disabled { -fx-opacity: 0.75; }
+.calendario-fecha { -fx-background-color: white; -fx-border-color: #91adb7; -fx-padding: 10; }
+.calendario-selector { -fx-padding: 6 12; }
+.calendario-cabecera-dia { -fx-text-fill: #526d77; -fx-font-weight: bold; -fx-alignment: center; -fx-min-width: 38; -fx-pref-width: 38; }
+.calendario-dia { -fx-alignment: center; -fx-min-width: 38; -fx-pref-width: 38; -fx-pref-height: 32; -fx-background-radius: 6; -fx-cursor: hand; }
+.calendario-dia:hover { -fx-background-color: #dceff0; }
+.calendario-dia-otro { -fx-text-fill: #8aa0a8; }
+.calendario-dia-hoy { -fx-border-color: #087e8b; -fx-border-radius: 6; }
+.calendario-dia-seleccionado, .calendario-dia-seleccionado:hover { -fx-background-color: #087e8b; -fx-text-fill: white; }
+.calendario-lista { -fx-background-color: white; -fx-border-color: #087e8b; -fx-border-width: 1; }
+.calendario-lista .list-cell { -fx-text-fill: #183b48; -fx-padding: 0 12; }
+.calendario-lista .list-cell:filled:hover { -fx-background-color: #dceff0; }
+.calendario-lista .list-cell:filled:selected { -fx-background-color: #087e8b; -fx-text-fill: white; }

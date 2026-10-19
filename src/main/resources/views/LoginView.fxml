@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cocab.controller.LoginController" styleClass="fondo">
+    <center>
+        <ScrollPane fitToWidth="true" fitToHeight="true" hbarPolicy="NEVER" styleClass="panel-desplazable">
+            <content>
+                <HBox alignment="CENTER" spacing="36">
+                    <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+                    <VBox alignment="CENTER_LEFT" spacing="18" prefWidth="340" minWidth="220">
+                        <Label text="COCAB" styleClass="marca"/>
+                        <Label text="Centro odontológico" styleClass="subtitulo"/>
+                        <Label text="Gestión de turnos e historias clínicas" wrapText="true" styleClass="titulo"/>
+                        <Separator/>
+                    </VBox>
+                    <VBox alignment="CENTER_LEFT" spacing="12" prefWidth="390" minWidth="350" styleClass="tarjeta">
+                        <padding><Insets top="28" right="28" bottom="28" left="28"/></padding>
+                        <Label text="Bienvenido" styleClass="titulo-tarjeta"/>
+                        <Label text="Ingrese con la cuenta asignada por la clínica." wrapText="true" styleClass="secundario"/>
+                        <Label text="_Usuario" labelFor="${txtUsuario}" mnemonicParsing="true"/>
+                        <TextField fx:id="txtUsuario" promptText="Nombre de usuario" accessibleText="Nombre de usuario"
+                                   onAction="#ingresar" maxWidth="Infinity"/>
+                        <Label text="_Contraseña" labelFor="${txtClave}" mnemonicParsing="true"/>
+                        <PasswordField fx:id="txtClave" promptText="Contraseña" accessibleText="Contraseña"
+                                       onAction="#ingresar" maxWidth="Infinity"/>
+                        <Button fx:id="btnIngresar" text="_Ingresar" mnemonicParsing="true" defaultButton="true"
+                                onAction="#ingresar" maxWidth="Infinity"/>
+                        <Label text="Para obtener o restablecer una cuenta, contacte al responsable de la clínica."
+                               wrapText="true" styleClass="estado"/>
+                        <ProgressIndicator fx:id="progreso" prefWidth="24" prefHeight="24" accessibleText="Operación en curso"/>
+                        <Label fx:id="lblEstado" wrapText="true" minHeight="60" styleClass="estado"/>
+                    </VBox>
+                </HBox>
+            </content>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <Label text="Federico Bencini - VINF017520 - 2026" wrapText="true" styleClass="pie" BorderPane.alignment="CENTER">
+            <padding><Insets top="10" right="20" bottom="20" left="20"/></padding>
+        </Label>
+    </bottom>
+</BorderPane>
